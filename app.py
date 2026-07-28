@@ -318,7 +318,7 @@ with st.sidebar:
         ],
         label_visibility="collapsed"    )    
     st.markdown("---")    
-    st.markdown("**Version** : Fleet v7.1")    
+    st.markdown("**Version** : Flux Hebdo Flotte 2027")    
     st.markdown("**Moteur** : code.js v7.1")
     st.markdown("**Support** : transport@auchan.fr")    
     st.markdown("---")    
@@ -370,7 +370,7 @@ if page == "🏠 Accueil":
     """)
 
     card("📂 Fichier source", """
-    <p>L'application lit ses données depuis le fichier Excel <code>Fleet V7.1.xlsx</code>    situé dans le même dossier que l'application.</p>
+    <p>L'application lit ses données depuis le fichier Excel <code>Flux Hebdo Flotte 2027.xlsx</code>    situé dans le même dossier que l'application.</p>
     <p>Onglets utilisés :</p>
     <code>Flux</code> &nbsp;|&nbsp; <code>Tournées</code> &nbsp;|&nbsp;    <code>Distancier</code> &nbsp;|&nbsp; <code>PlagesOuverture</code> &nbsp;|&nbsp;
     <code>Modules</code> &nbsp;|&nbsp; <code>Offsets</code> &nbsp;|&nbsp;
@@ -388,7 +388,7 @@ elif page == "🚀 Démarrage rapide":
     st.markdown("## 🚀 Démarrage rapide")    
     alerte("⏱️ Suivez ces étapes dans l'ordre pour planifier votre première journée en moins de 5 minutes.", "info")
 
-    step(1, "Vérifier le fichier Excel",         "Assurez-vous que Fleet V7.1.xlsx est présent dans le dossier de l'application "         "et que tous les onglets requis sont renseignés.")
+    step(1, "Vérifier le fichier Excel",         "Assurez-vous que Flux Hebdo Flotte 2027.xlsx est présent dans le dossier de l'application "         "et que tous les onglets requis sont renseignés.")
 
     step(2, "Sélectionner le jour de planification",
          "Dans l'interface principale, choisissez le jour (Lundi, Mardi, …) "
@@ -565,7 +565,7 @@ elif page == "📊 Indicateurs KPI":
 elif page == "💾 Sauvegarde & Export":
     st.markdown("## 💾 Sauvegarde & Export")
 
-    card("Sauvegarder le plan", """    <p>La fonction <code>sauvegarderPlan(donnees)</code> écrit les données planifiées    dans l'onglet <strong>Plan</strong> du fichier <code>Fleet V7.1.xlsx</code>.</p>
+    card("Sauvegarder le plan", """    <p>La fonction <code>sauvegarderPlan(donnees)</code> écrit les données planifiées    dans l'onglet <strong>Plan</strong> du fichier <code>Flux Hebdo Flotte 2027.xlsx</code>.</p>
     <p>⚠️ Cette opération <strong>écrase</strong> le contenu précédent de l'onglet Plan.</p>
     """)
 
@@ -573,7 +573,7 @@ elif page == "💾 Sauvegarde & Export":
     step(2, "Cliquer sur 'Sauvegarder le plan'",
          "Le moteur écrit les données dans l'onglet Plan du fichier Excel.")
     step(3, "Vérifier le fichier Excel",
-         "Ouvrez Fleet V7.1.xlsx et consultez l'onglet Plan pour confirmer la sauvegarde.")
+         "Ouvrez Flux Hebdo Flotte 2027.xlsx et consultez l'onglet Plan pour confirmer la sauvegarde.")
     step(4, "Exporter si besoin",
          "Depuis Excel, exportez en PDF ou partagez le fichier avec les équipes terrain.")
 
@@ -589,7 +589,7 @@ elif page == "❓ FAQ":
     st.markdown("## ❓ Questions fréquentes")
 
     faqs = [
-        ("Le fichier Excel n'est pas trouvé",         "Vérifiez que <code>Fleet V7.1.xlsx</code> est dans le même dossier que l'application. "         "Le chemin est défini par la constante <code>FILE_EXCEL</code> dans <code>code.js</code>."),
+        ("Le fichier Excel n'est pas trouvé",         "Vérifiez que <code>Flux Hebdo Flotte 2027.xlsx</code> est dans le même dossier que l'application. "         "Le chemin est défini par la constante <code>FILE_EXCEL</code> dans <code>code.js</code>."),
         ("Une tournée affiche une erreur R2 (incompatibilité)",         "Vérifiez que les marchandises affectées à la même tournée sont compatibles. "
          "FL/PF ne peuvent pas être mélangées avec PGC/NAL/BSA/SURG."),
         ("Les pauses R6/R7 allongent trop la tournée",
@@ -615,6 +615,6 @@ elif page == "❓ FAQ":
 # ══════════════════════════════════════════════════════════════
 st.markdown("""
 <div class="footer">
-    Auchan Transport — Outil de Planification Fleet v7.1 &nbsp;|&nbsp;    Région Nord &nbsp;|&nbsp;    Support : transport@auchan.fr</div>
+    Auchan Transport — Outil de Planification Flux Hebdo Flotte 2027 &nbsp;|&nbsp;    Région Nord &nbsp;|&nbsp;    Support : transport@auchan.fr</div>
 """, unsafe_allow_html=True)
 
