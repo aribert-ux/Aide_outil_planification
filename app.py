@@ -293,7 +293,8 @@ def badge(texte, couleur="rouge"):
     st.markdown(f'<span class="{cls}">{texte}</span>', unsafe_allow_html=True)
 
 def alerte(texte, type_="info"):
-    classes = {"erreur": "alert-rouge", "succes": "alert-verte", "info": "alert-orange"}    cls = classes.get(type_, "alert-orange")
+    classes = {"erreur": "alert-rouge", "succes": "alert-verte", "info": "alert-orange"}    
+    cls = classes.get(type_, "alert-orange")
     st.markdown(f'<div class="{cls}">{texte}</div>', unsafe_allow_html=True)
 
 # ══════════════════════════════════════════════════════════════
