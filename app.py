@@ -409,7 +409,8 @@ elif page == "🚀 Démarrage rapide":
     step(7, "Sauvegarder le plan",
          "Cliquez sur 'Sauvegarder le plan'. Les données sont écrites "         "dans l'onglet Plan du fichier Excel.")
 
-    st.markdown("---")    alerte("✅ Le plan est prêt à être transmis aux équipes terrain.", "succes")
+    st.markdown("---")    
+    alerte("✅ Le plan est prêt à être transmis aux équipes terrain.", "succes")
 
 # ══════════════════════════════════════════════════════════════
 # PAGE — GESTION DES FLUX
