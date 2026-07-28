@@ -349,7 +349,7 @@ if page == "🏠 Accueil":
             <div class="kpi-label">Types de marchandises</div>
         </div>""", unsafe_allow_html=True)    
         with col3:
-        st.markdown("""
+            st.markdown("""
         <div class="kpi-card">
             <div class="kpi-value">33 UT</div>
             <div class="kpi-label">Capacité max remorque</div>
