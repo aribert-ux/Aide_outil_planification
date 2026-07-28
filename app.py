@@ -527,7 +527,8 @@ elif page == "⚖️ Règles métier":
 
     for code, titre, desc, niveau in regles:
         with st.expander(f"**{code}** — {titre}"):
-            alerte(f"<strong>Niveau :</strong> {niveau}", couleurs.get(niveau, "info"))            st.markdown(desc)
+            alerte(f"<strong>Niveau :</strong> {niveau}", couleurs.get(niveau, "info"))            
+            st.markdown(desc)
 
 # ══════════════════════════════════════════════════════════════
 # PAGE — INDICATEURS KPI
