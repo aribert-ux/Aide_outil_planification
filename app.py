@@ -250,20 +250,23 @@ st.markdown("""<style>
 # FONCTIONS UTILITAIRES
 # ══════════════════════════════════════════════════════════════
 
-def header():    """Affiche le header avec logo Auchan."""    # ── Chargement du logo SVG ──────────────────────────────    
-logo_html = ""    
-try:
-    with open("logo.svg", "r", encoding="utf-8") as f:
-        svg_content = f.read()        
-        logo_html = f'<div style="width:54px;height:54px;flex-shrink:0">{svg_content}</div>'    except FileNotFoundError:
-        logo_html = '<div style="font-size:2.2rem">🚚</div>'    # ────────────────────────────────────────────────────────
+def header():
+    """Affiche le header avec logo Auchan."""
+    # ── Chargement du logo SVG ──────────────────────────────
+    logo_html = ""
+    try:
+        with open("logo.svg", "r", encoding="utf-8") as f:
+            svg_content = f.read()
+            logo_html = f'<div style="width:54px;height:54px;flex-shrink:0">{svg_content}</div>'
+    except FileNotFoundError:        logo_html = '<div style="font-size:2.2rem">🚚</div>'    # ────────────────────────────────────────────────────────
 
-    st.markdown(f"""    <div class="auchan-header">
+    st.markdown(f"""
+    <div class="auchan-header">
         {logo_html}
         <div>            <h1>Outil de Planification Transport</h1>
-            <p>Auchan — Guide d'utilisation & Aide en ligne</p>
-        </div>
-    </div>    """, unsafe_allow_html=True)
+            <p>Auchan — Guide d'utilisation & Aide en ligne</p>        </div>
+    </div>
+    """, unsafe_allow_html=True)```
 
 def card(titre, contenu_html):    st.markdown(f"""
     <div class="help-card">
