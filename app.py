@@ -383,7 +383,8 @@ if page == "🏠 Accueil":
 # ══════════════════════════════════════════════════════════════
 
 elif page == "🚀 Démarrage rapide":
-    st.markdown("## 🚀 Démarrage rapide")    alerte("⏱️ Suivez ces étapes dans l'ordre pour planifier votre première journée en moins de 5 minutes.", "info")
+    st.markdown("## 🚀 Démarrage rapide")    
+    alerte("⏱️ Suivez ces étapes dans l'ordre pour planifier votre première journée en moins de 5 minutes.", "info")
 
     step(1, "Vérifier le fichier Excel",         "Assurez-vous que Fleet V7.1.xlsx est présent dans le dossier de l'application "         "et que tous les onglets requis sont renseignés.")
 
