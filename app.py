@@ -288,7 +288,9 @@ def step(num, titre, description):
     """, unsafe_allow_html=True)
 
 def badge(texte, couleur="rouge"):
-    classes = {"rouge": "badge-regle", "vert": "badge-regle badge-ok",               "orange": "badge-regle badge-warn", "bleu": "badge-regle badge-info"}    cls = classes.get(couleur, "badge-regle")    st.markdown(f'<span class="{cls}">{texte}</span>', unsafe_allow_html=True)
+    classes = {"rouge": "badge-regle", "vert": "badge-regle badge-ok",               "orange": "badge-regle badge-warn", "bleu": "badge-regle badge-info"}    
+    cls = classes.get(couleur, "badge-regle")    
+    st.markdown(f'<span class="{cls}">{texte}</span>', unsafe_allow_html=True)
 
 def alerte(texte, type_="info"):
     classes = {"erreur": "alert-rouge", "succes": "alert-verte", "info": "alert-orange"}    cls = classes.get(type_, "alert-orange")
