@@ -371,14 +371,7 @@ if page == "🏠 Accueil":
 
     card("📂 Fichier source", """
     <p>L'application lit ses données depuis le fichier Excel <code>Flux Hebdo Flotte 2027.xlsx</code>    situé dans le même dossier que l'application.</p>
-    <p>Onglets utilisés :</p>
-    <code>Flux</code> &nbsp;|&nbsp; <code>Tournées</code> &nbsp;|&nbsp;    <code>Distancier</code> &nbsp;|&nbsp; <code>PlagesOuverture</code> &nbsp;|&nbsp;
-    <code>Modules</code> &nbsp;|&nbsp; <code>Offsets</code> &nbsp;|&nbsp;
-    <code>OrdreArrêts</code> &nbsp;|&nbsp; <code>Lieux</code> &nbsp;|&nbsp;
-    <code>TempsDecharge</code> &nbsp;|&nbsp; <code>Plan</code> &nbsp;|&nbsp;
-    <code>Couts_Modules</code> &nbsp;|&nbsp; <code>Affretements</code> &nbsp;|&nbsp;
-    <code>Chaines</code> &nbsp;|&nbsp; <code>PausesPosees</code> &nbsp;|&nbsp;
-    <code>Chargements</code>    """)
+    """)
 
 # ══════════════════════════════════════════════════════════════
 # PAGE — DÉMARRAGE RAPIDE
