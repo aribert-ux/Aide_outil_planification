@@ -604,7 +604,9 @@ elif page == "❓ FAQ":
          "Le thème rouge Auchan utilise <code>#D6180B</code> (rouge principal) et <code>#7F0000</code> (rouge foncé)."),
     ]
 
-    for question, reponse in faqs:        with st.expander(f"❓ {question}"):            st.markdown(reponse, unsafe_allow_html=True)
+    for question, reponse in faqs:        
+    with st.expander(f"❓ {question}"):            
+        st.markdown(reponse, unsafe_allow_html=True)
 
 # ══════════════════════════════════════════════════════════════
 # PIED DE PAGE
