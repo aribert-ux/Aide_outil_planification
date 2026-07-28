@@ -605,8 +605,8 @@ elif page == "❓ FAQ":
     ]
 
     for question, reponse in faqs:        
-    with st.expander(f"❓ {question}"):            
-        st.markdown(reponse, unsafe_allow_html=True)
+        with st.expander(f"❓ {question}"):            
+            st.markdown(reponse, unsafe_allow_html=True)
 
 # ══════════════════════════════════════════════════════════════
 # PIED DE PAGE
