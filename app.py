@@ -254,15 +254,13 @@ st.markdown("""<style>
 
 def header():
     """Affiche le header avec logo Auchan."""
-    # ── Chargement du logo SVG ──────────────────────────────
     logo_html = ""
     try:
         with open("logo.svg", "r", encoding="utf-8") as f:
             svg_content = f.read()
-            logo_html = f'<div style="width:54px;height:54px;flex-shrink:0">{svg_content}</div>'
+            logo_html = f'<div style="width:54px;height:54px;flex-shrink:0;filter:brightness(0) invert(1)">{svg_content}</div>'
     except FileNotFoundError:
         logo_html = '<div style="font-size:2.2rem">🚚</div>'
-    # ────────────────────────────────────────────────────────
 
     st.markdown(f"""
     <div class="auchan-header">
