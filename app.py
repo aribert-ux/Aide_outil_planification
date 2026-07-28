@@ -567,7 +567,8 @@ elif page == "💾 Sauvegarde & Export":
     <p>⚠️ Cette opération <strong>écrase</strong> le contenu précédent de l'onglet Plan.</p>
     """)
 
-    step(1, "Valider toutes les tournées",         "Assurez-vous qu'il n'y a aucune erreur R1–R11 avant de sauvegarder.")    step(2, "Cliquer sur 'Sauvegarder le plan'",
+    step(1, "Valider toutes les tournées",         "Assurez-vous qu'il n'y a aucune erreur R1–R11 avant de sauvegarder.")    
+    step(2, "Cliquer sur 'Sauvegarder le plan'",
          "Le moteur écrit les données dans l'onglet Plan du fichier Excel.")
     step(3, "Vérifier le fichier Excel",
          "Ouvrez Fleet V7.1.xlsx et consultez l'onglet Plan pour confirmer la sauvegarde.")
