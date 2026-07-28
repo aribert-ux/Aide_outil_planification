@@ -314,8 +314,13 @@ with st.sidebar:
             "💾 Sauvegarde & Export",
             "❓ FAQ",
         ],
-        label_visibility="collapsed"    )    st.markdown("---")    st.markdown("**Version** : Fleet v7.1")    st.markdown("**Moteur** : code.js v7.1")
-    st.markdown("**Support** : transport@auchan.fr")    st.markdown("---")    st.markdown(        '<div style="font-size:0.78rem;color:#FFCDD2;text-align:center">'        '© 2024 Auchan Transport<br>Région Nord</div>',
+        label_visibility="collapsed"    )    
+    st.markdown("---")    
+    st.markdown("**Version** : Fleet v7.1")    
+    st.markdown("**Moteur** : code.js v7.1")
+    st.markdown("**Support** : transport@auchan.fr")    
+    st.markdown("---")    
+    st.markdown(        '<div style="font-size:0.78rem;color:#FFCDD2;text-align:center">'        '© 2026 Auchan Transport<br>Région Nord</div>',
         unsafe_allow_html=True    )
 
 # ══════════════════════════════════════════════════════════════
