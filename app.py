@@ -301,7 +301,10 @@ def alerte(texte, type_="info"):
 # SIDEBAR — NAVIGATION
 # ══════════════════════════════════════════════════════════════
 
-with st.sidebar:    st.markdown("### 📋 Navigation")    st.markdown("---")    page = st.radio(
+with st.sidebar:    
+    st.markdown("### 📋 Navigation")    
+    st.markdown("---")    
+    page = st.radio(
         "Choisir une section :",
         options=[            "🏠 Accueil",            "🚀 Démarrage rapide",
             "📦 Gestion des flux",
