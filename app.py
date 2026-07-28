@@ -614,5 +614,5 @@ elif page == "❓ FAQ":
 st.markdown("""
 <div class="footer">
     Auchan Transport — Outil de Planification Fleet v7.1 &nbsp;|&nbsp;    Région Nord &nbsp;|&nbsp;    Support : transport@auchan.fr</div>
-""", unsafe_allow_html=True)```
+""", unsafe_allow_html=True)
 
