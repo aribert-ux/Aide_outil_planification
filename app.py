@@ -575,7 +575,8 @@ elif page == "💾 Sauvegarde & Export":
     step(4, "Exporter si besoin",
          "Depuis Excel, exportez en PDF ou partagez le fichier avec les équipes terrain.")
 
-    st.markdown("---")    alerte(        "💡 <strong>Conseil :</strong> Faites une copie de sauvegarde du fichier Excel "        "avant toute modification importante.",
+    st.markdown("---")    
+    alerte(        "💡 <strong>Conseil :</strong> Faites une copie de sauvegarde du fichier Excel "        "avant toute modification importante.",
         "info"
     )
 
