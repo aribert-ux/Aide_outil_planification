@@ -1,5 +1,8 @@
 import streamlit as st
 import os
+import requests                         
+import google.generativeai as genai     
+from datetime import datetime  
 
 # ══════════════════════════════════════════════════════════════
 # CHARGEMENT DU CODE GITHUB (NOUVEAU)
