@@ -204,7 +204,7 @@ def alerte(texte, type_="info"):
 with st.sidebar:
     st.markdown("### 📋 Navigation")
     st.markdown("---")
-        page = st.radio(
+    page = st.radio(
         "Choisir une section :",
         options=[
             "🏠 Accueil",
