@@ -667,31 +667,29 @@ elif page == "📊 Indicateurs KPI":
     st.markdown("## 📊 Indicateurs KPI")
 
     st.markdown("""
-    <div style="background:#fff;border-radius:8px;padding:20px;border:1px solid #e0e0e0;box-shadow:0 2px 6px rgba(0,0,0,0.08)">        
+    <div style="background:#fff;border-radius:8px;padding:20px;border:1px solid #e0e0e0;box-shadow:0 2px 6px rgba(0,0,0,0.08)">                
     <h4>Modèle de coût trinôme</h4>        
-    <p>Le coût d'un module est calculé selon la formule :</p>
-    <pre style="background:#FFF5F5;padding:12px;border-radius:6px;border-left:4px solid #D6180B">
+        <p>Le coût d'un module est calculé selon la formule :</p>        
+        <pre style="background:#FFF5F5;padding:12px;border-radius:6px;border-left:4px solid #D6180B">
 Coût = A
-     + B_sec   × km_sec
-     + B_frais × km_frais
+     + B_sec   × km_sec     + B_frais × km_frais
      + C_jour  × heures_jour
-     + C_nuit  × heures_nuit</pre>
-    <table class="styled-table">
-        <thead><tr><th>Paramètre</th><th>Description</th><th>Valeur par défaut</th></tr></thead>
-        <tbody>
-            <tr><td><strong>A</strong></td><td>Coût fixe par module</td><td>10 €</td></tr>
-            <tr><td><strong>B sec</strong></td><td>Coût kilométrique SEC (PGC/NAL/BSA)</td><td>0,45 €/km</td></tr>
-            <tr><td><strong>B frais</strong></td><td>Coût kilométrique Frais/SURG (FL/PF/SURG)</td><td>0,55 €/km</td></tr>
-            <tr><td><strong>C jour</strong></td><td>Coût horaire shift de jour (06h–22h)</td><td>35 €/h</td></tr>
-            <tr><td><strong>C nuit</strong></td><td>Coût horaire shift de nuit (22h–06h)</td><td>47 €/h</td></tr>
-            <tr><td><strong>CO₂/km</strong></td><td>Émissions CO₂ par km (semi-remorque 35t)</td><td>900 g/km</td></tr>
-            <tr><td><strong>Prix carbone</strong></td><td>Coût de la tonne de CO₂</td><td>50 €/t</td></tr>
-        </tbody>
-    </table>
-    <p style="margin-top:12px;font-size:0.88rem;color:#666">
-        ℹ️ Tous les paramètres sont modifiables directement dans le panneau KPI de l'interface.
-    </p>
-    """)
+     + C_nuit  × heures_nuit</pre>        <table class="styled-table">
+            <thead>                <tr>
+                    <th>Paramètre</th>
+                    <th>Description</th>                    <th>Valeur par défaut</th>
+                </tr>            </thead>
+            <tbody>
+                <tr><td><strong>A</strong></td><td>Coût fixe par module</td><td>10 €</td></tr>
+                <tr><td><strong>B sec</strong></td><td>Coût kilométrique SEC (PGC/NAL/BSA)</td><td>0,45 €/km</td></tr>                <tr><td><strong>B frais</strong></td><td>Coût kilométrique Frais/SURG (FL/PF/SURG)</td><td>0,55 €/km</td></tr>
+                <tr><td><strong>C jour</strong></td><td>Coût horaire shift de jour (06h–22h)</td><td>35 €/h</td></tr>                <tr><td><strong>C nuit</strong></td><td>Coût horaire shift de nuit (22h–06h)</td><td>47 €/h</td></tr>                <tr><td><strong>CO₂/km</strong></td><td>Émissions CO₂ par km (semi-remorque 35t)</td><td>900 g/km</td></tr>
+                <tr><td><strong>Prix carbone</strong></td><td>Coût de la tonne de CO₂</td><td>50 €/t</td></tr>
+            </tbody>        </table>
+        <p style="margin-top:12px;font-size:0.88rem;color:#666">
+            ℹ️ Tous les paramètres sont modifiables directement dans le panneau KPI de l'interface.
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
 
     st.markdown("---")
 
