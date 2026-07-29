@@ -9,7 +9,7 @@ from datetime import datetime
 # ══════════════════════════════════════════════════════════════
 @st.cache_data(ttl=600)  # Cache 10 minutes
 def charger_code_depuis_github():
-    url = "https://raw.github.com/aribert-ux/Output/blob/main/index.html"
+    url = "https://raw.githubusercontent.com/aribert-ux/Output/main/index.html"
     try:
         r = requests.get(url, timeout=15)
         if r.ok:
