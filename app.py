@@ -219,14 +219,14 @@ with st.sidebar:
             "📊 Indicateurs KPI",
             "💾 Sauvegarde & Export",
             "❓ FAQ",
-            "🤖 Assistant IA",           # ← AJOUTER ICI
+            "🤖 Assistant IA",           
         ],
         label_visibility="collapsed"
     )
     st.markdown("---")
-    st.markdown("**Version** : Outil Planification Transport")
+    st.markdown("**Version** : Beta non stable")
     st.markdown("**Moteur** : 100% navigateur (SheetJS)")
-    st.markdown("**Support** : transport@auchan.fr")
+    st.markdown("**Support** : aribert@auchan.fr")
     st.markdown("---")
     st.markdown(
         '<div style="font-size:0.78rem;color:#FFCDD2;text-align:center">'
@@ -844,10 +844,6 @@ elif page == "🤖 Assistant IA":
             "⚠️ Clé API Gemini non configurée. "
             "Ajoutez GEMINI_API_KEY dans .streamlit/secrets.toml"
         )
-        st.code(
-            '[secrets]\nGEMINI_API_KEY = "AIza..."',
-            language="toml"
-        )
         st.stop()
 
     # Prompt système avec le code injecté
@@ -915,6 +911,6 @@ st.markdown("""
 <div class="footer">
     Auchan Transport — Outil de Planification Transport &nbsp;|&nbsp;
     Région Nord &nbsp;|&nbsp;
-    Support : transport@auchan.fr
+    Support : aribert@auchan.fr
 </div>
 """, unsafe_allow_html=True)
