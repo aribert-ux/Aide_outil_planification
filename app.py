@@ -666,7 +666,9 @@ elif page == "⚖️ Règles métier":
 elif page == "📊 Indicateurs KPI":
     st.markdown("## 📊 Indicateurs KPI")
 
-    card("Modèle de coût trinôme", """
+    st.markdown("""
+    <div style="background:#fff;border-radius:8px;padding:20px;border:1px solid #e0e0e0;box-shadow:0 2px 6px rgba(0,0,0,0.08)">        
+    <h4>Modèle de coût trinôme</h4>        
     <p>Le coût d'un module est calculé selon la formule :</p>
     <pre style="background:#FFF5F5;padding:12px;border-radius:6px;border-left:4px solid #D6180B">
 Coût = A
