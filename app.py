@@ -2,6 +2,22 @@ import streamlit as st
 import os
 
 # ══════════════════════════════════════════════════════════════
+# CHARGEMENT DU CODE GITHUB (NOUVEAU)
+# ══════════════════════════════════════════════════════════════
+@st.cache_data(ttl=600)  # Cache 10 minutes
+def charger_code_depuis_github():
+    url = "https://raw.githubusercontent.com/VOTRE-ORG/VOTRE-REPO/main/index.html"
+    try:
+        r = requests.get(url, timeout=15)
+        if r.ok:
+            return r.text
+        return f"Erreur de chargement : {r.status_code}"
+    except Exception as e:
+        return f"Erreur réseau : {e}"
+
+GEMINI_API_KEY = st.secrets.get("GEMINI_API_KEY", "")
+
+# ══════════════════════════════════════════════════════════════
 # CONFIGURATION PAGE
 # ══════════════════════════════════════════════════════════════
 st.set_page_config(
@@ -188,7 +204,7 @@ def alerte(texte, type_="info"):
 with st.sidebar:
     st.markdown("### 📋 Navigation")
     st.markdown("---")
-    page = st.radio(
+        page = st.radio(
         "Choisir une section :",
         options=[
             "🏠 Accueil",
@@ -200,6 +216,7 @@ with st.sidebar:
             "📊 Indicateurs KPI",
             "💾 Sauvegarde & Export",
             "❓ FAQ",
+            "🤖 Assistant IA",           # ← AJOUTER ICI
         ],
         label_visibility="collapsed"
     )
@@ -795,6 +812,98 @@ elif page == "❓ FAQ":
     for question, reponse in faqs:
         with st.expander(f"❓ {question}"):
             st.markdown(reponse, unsafe_allow_html=True)
+
+# ══════════════════════════════════════════════════════════════
+# PAGE — ASSISTANT IA
+# ══════════════════════════════════════════════════════════════
+elif page == "🤖 Assistant IA":
+    st.markdown("## 🤖 Assistant IA — Outil de Planification Transport")
+    st.markdown(
+        "Posez vos questions sur le code, les règles métier, "
+        "les fichiers d'entrée, les vues Gantt, les KPI, etc."
+    )
+
+    # Chargement du code source depuis GitHub
+    with st.spinner("Chargement du code source depuis GitHub..."):
+        code_source = charger_code_depuis_github()
+
+    nb_lignes = code_source.count('\n')
+    st.sidebar.success(f"✅ index.html chargé ({nb_lignes:,} lignes)")
+    st.sidebar.caption(f"Mis à jour : {datetime.now().strftime('%H:%M:%S')}")
+
+    if st.sidebar.button("🔄 Forcer le rechargement"):
+        st.cache_data.clear()
+        st.rerun()
+
+    # Vérification clé API
+    if not GEMINI_API_KEY:
+        st.warning(
+            "⚠️ Clé API Gemini non configurée. "
+            "Ajoutez GEMINI_API_KEY dans .streamlit/secrets.toml"
+        )
+        st.code(
+            '[secrets]\nGEMINI_API_KEY = "AIza..."',
+            language="toml"
+        )
+        st.stop()
+
+    # Prompt système avec le code injecté
+    SYSTEM_PROMPT = (
+        f"Tu es un assistant expert de l'outil de planification transport Auchan Région Nord.\n"
+        f"Tu as accès au code source complet de l'application (index.html, {nb_lignes} lignes).\n\n"
+        f"Le code est découpé en sections commentées.\n"
+        f"Quand tu réponds :\n"
+        f"- Cite la section concernée si pertinent\n"
+        f"- Donne des exemples concrets tirés du code réel\n"
+        f"- Réponds en français, de façon concise et pratique\n"
+        f"- Si une question concerne une règle (R1 à R12), explique son implémentation\n\n"
+        f"Voici le code source complet :\n\n"
+        f"{code_source}"
+    )
+
+    # Initialisation du modèle et de l'historique
+    if "chat_messages" not in st.session_state:
+        st.session_state.chat_messages = []
+
+    if "gemini_chat" not in st.session_state:
+        genai.configure(api_key=GEMINI_API_KEY)
+        model = genai.GenerativeModel(
+            model_name="gemini-2.0-flash-exp",
+            system_instruction=SYSTEM_PROMPT
+        )
+        st.session_state.gemini_chat = model.start_chat(history=[])
+
+    # Affichage de l'historique de conversation
+    for msg in st.session_state.chat_messages:
+        with st.chat_message(msg["role"]):
+            st.markdown(msg["content"])
+
+    # Saisie utilisateur
+    if prompt := st.chat_input("Posez votre question sur l'outil ou le code..."):
+
+        st.session_state.chat_messages.append({"role": "user", "content": prompt})
+        with st.chat_message("user"):
+            st.markdown(prompt)
+
+        with st.chat_message("assistant"):
+            with st.spinner("Gemini analyse le code..."):
+                try:
+                    response = st.session_state.gemini_chat.send_message(prompt)
+                    answer = response.text
+                except Exception as e:
+                    answer = f"Erreur Gemini : {e}"
+                st.markdown(answer)
+
+        st.session_state.chat_messages.append({"role": "assistant", "content": answer})
+
+    # Bouton reset conversation
+    if st.session_state.get("chat_messages"):
+        st.markdown("---")
+        if st.button("🗑️ Effacer la conversation"):
+            st.session_state.chat_messages = []
+            if "gemini_chat" in st.session_state:
+                del st.session_state.gemini_chat
+            st.rerun()
 
 # ══════════════════════════════════════════════════════════════
 # PIED DE PAGE
