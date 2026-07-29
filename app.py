@@ -831,10 +831,10 @@ elif page == "🤖 Assistant IA":
         code_source = charger_code_depuis_github()
 
     nb_lignes = code_source.count('\n')
-    st.sidebar.success(f"✅ index.html chargé ({nb_lignes:,} lignes)")
-    st.sidebar.caption(f"Mis à jour : {datetime.now().strftime('%H:%M:%S')}")
+    st.success(f"✅ index.html chargé ({nb_lignes:,} lignes)")
+    st.caption(f"Mis à jour : {datetime.now().strftime('%H:%M:%S')}")
 
-    if st.sidebar.button("🔄 Forcer le rechargement"):
+    if st.button("🔄 Forcer le rechargement"):
         st.cache_data.clear()
         st.rerun()
 
