@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aide — Outil de Planification Transport Auchan</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg'><text y='32' font-size='32'>🚚</text></svg>" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- SIDEBAR -->
+  <nav id="sidebar">
+    <div class="sidebar-title">📋 Navigation</div>
+    <hr />
+    <ul id="nav-list">
+      <li class="nav-item active" data-page="accueil">🏠 Accueil</li>
+      <li class="nav-item" data-page="fichiers">📂 Fichiers d'entrée</li>
+      <li class="nav-item" data-page="demarrage">🚀 Démarrage rapide</li>
+      <li class="nav-item" data-page="flux">📦 Gestion des flux</li>
+      <li class="nav-item" data-page="tournees">🗺️ Planification des tournées</li>
+      <li class="nav-item" data-page="regles">⚖️ Règles métier</li>
+      <li class="nav-item" data-page="kpi">📊 Indicateurs KPI</li>
+      <li class="nav-item" data-page="export">💾 Sauvegarde & Export</li>
+      <li class="nav-item" data-page="faq">❓ FAQ</li>
+      <li class="nav-item" data-page="assistant">🤖 Assistant IA</li>
+    </ul>
+    <hr />
+    <div class="sidebar-meta">
+      <p><strong>Version</strong> : Beta non stable</p>
+      <p><strong>Moteur</strong> : 100% navigateur (SheetJS)</p>
+      <p><strong>Support</strong> : aribert@auchan.fr</p>
+    </div>
+    <hr />
+    <div class="sidebar-footer">© Auchan Transport<br />Région Nord</div>
+  </nav>
+
+  <!-- BURGER (mobile) -->
+  <button id="burger" onclick="toggleSidebar()">☰</button>
+
+  <!-- MAIN -->
+  <main id="main-content">
+
+    <!-- HEADER -->
+    <div class="auchan-header">
+      <div id="logo-container">🚚</div>
+      <div>
+        <h1>Outil de Planification Transport</h1>
+        <p>Auchan — Guide d'utilisation &amp; Aide en ligne</p>
+      </div>
+    </div>
+
+    <!-- PAGES -->
+    <div id="page-accueil" class="page active"></div>
+    <div id="page-fichiers" class="page"></div>
+    <div id="page-demarrage" class="page"></div>
+    <div id="page-flux" class="page"></div>
+    <div id="page-tournees" class="page"></div>
+    <div id="page-regles" class="page"></div>
+    <div id="page-kpi" class="page"></div>
+    <div id="page-export" class="page"></div>
+    <div id="page-faq" class="page"></div>
+    <div id="page-assistant" class="page"></div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+      Auchan Transport — Outil de Planification Transport &nbsp;|&nbsp;
+      Région Nord &nbsp;|&nbsp;
+      Support : aribert@auchan.fr
+    </div>
+
+  </main>
+
+  <!-- Scripts -->
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
