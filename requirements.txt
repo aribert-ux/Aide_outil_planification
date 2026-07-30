@@ -1,6 +1,5 @@
+pandas 
 streamlit
 requests
-pandas
-litellm
 google-generativeai
 openai
