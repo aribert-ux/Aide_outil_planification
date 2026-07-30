@@ -3,6 +3,7 @@ import os
 import requests                         
 import google.generativeai as genai     
 from datetime import datetime  
+import litellm
 
 # ══════════════════════════════════════════════════════════════
 # CHARGEMENT DU CODE GITHUB (NOUVEAU)
@@ -18,7 +19,10 @@ def charger_code_depuis_github():
     except Exception as e:
         return f"Erreur réseau : {e}"
 
-GEMINI_API_KEY = st.secrets.get("GEMINI_API_KEY", "")
+GEMINI_API_KEY  = st.secrets.get("GEMINI_API_KEY", "")
+LITELLM_API_KEY = st.secrets.get("LITELLM_API_KEY", "")
+LITELLM_API_BASE= st.secrets.get("LITELLM_API_BASE", "")   # URL de ton proxy LiteLLM
+LITELLM_MODEL   = st.secrets.get("LITELLM_MODEL", "gpt-4o") # modèle à utiliser via LiteLLM
 
 # ══════════════════════════════════════════════════════════════
 # CONFIGURATION PAGE
@@ -826,7 +830,7 @@ elif page == "🤖 Assistant IA":
         "les fichiers d'entrée, les vues Gantt, les KPI, etc."
     )
 
-    # Chargement du code source depuis GitHub
+    # ── Chargement du code source depuis GitHub ──────────────
     with st.spinner("Chargement du code source depuis GitHub..."):
         code_source = charger_code_depuis_github()
 
@@ -838,15 +842,33 @@ elif page == "🤖 Assistant IA":
         st.cache_data.clear()
         st.rerun()
 
-    # Vérification clé API
-    if not GEMINI_API_KEY:
-        st.warning(
-            "⚠️ Clé API Gemini non configurée. "
-            "Ajoutez GEMINI_API_KEY dans .streamlit/secrets.toml"
-        )
-        st.stop()
+    # ── Sélection du moteur IA ───────────────────────────────
+    st.markdown("---")
+    moteur = st.radio(
+        "🔌 Moteur IA à utiliser :",
+        options=["🔵 LiteLLM (proxy)", "🟣 Gemini (direct)"],
+        horizontal=True
+    )
+    use_litellm = moteur.startswith("🔵")
 
-    # Prompt système avec le code injecté
+    # ── Vérification des clés API ────────────────────────────
+    if use_litellm:
+        if not LITELLM_API_KEY and not LITELLM_API_BASE:
+            st.warning(
+                "⚠️ LiteLLM non configuré. "
+                "Ajoutez LITELLM_API_KEY et/ou LITELLM_API_BASE "
+                "dans .streamlit/secrets.toml"
+            )
+            st.stop()
+    else:
+        if not GEMINI_API_KEY:
+            st.warning(
+                "⚠️ Clé API Gemini non configurée. "
+                "Ajoutez GEMINI_API_KEY dans .streamlit/secrets.toml"
+            )
+            st.stop()
+
+    # ── Prompt système ───────────────────────────────────────
     SYSTEM_PROMPT = (
         f"Tu es un assistant expert de l'outil de planification transport Auchan Région Nord.\n"
         f"Tu as accès au code source complet de l'application (index.html, {nb_lignes} lignes).\n\n"
@@ -860,11 +882,12 @@ elif page == "🤖 Assistant IA":
         f"{code_source}"
     )
 
-    # Initialisation du modèle et de l'historique
+    # ── Initialisation de l'historique ───────────────────────
     if "chat_messages" not in st.session_state:
         st.session_state.chat_messages = []
 
-    if "gemini_chat" not in st.session_state:
+    # ── Initialisation du chat Gemini (si mode Gemini) ───────
+    if not use_litellm and "gemini_chat" not in st.session_state:
         genai.configure(api_key=GEMINI_API_KEY)
         model = genai.GenerativeModel(
             model_name="gemini-2.0-flash-exp",
@@ -872,12 +895,12 @@ elif page == "🤖 Assistant IA":
         )
         st.session_state.gemini_chat = model.start_chat(history=[])
 
-    # Affichage de l'historique de conversation
+    # ── Affichage de l'historique de conversation ────────────
     for msg in st.session_state.chat_messages:
         with st.chat_message(msg["role"]):
             st.markdown(msg["content"])
 
-    # Saisie utilisateur
+    # ── Saisie utilisateur ───────────────────────────────────
     if prompt := st.chat_input("Posez votre question sur l'outil ou le code..."):
 
         st.session_state.chat_messages.append({"role": "user", "content": prompt})
@@ -885,23 +908,61 @@ elif page == "🤖 Assistant IA":
             st.markdown(prompt)
 
         with st.chat_message("assistant"):
-            with st.spinner("Gemini analyse le code..."):
-                try:
-                    response = st.session_state.gemini_chat.send_message(prompt)
-                    answer = response.text
-                except Exception as e:
-                    answer = f"Erreur Gemini : {e}"
-                st.markdown(answer)
+
+            # ── Mode LiteLLM ─────────────────────────────────
+            if use_litellm:
+                with st.spinner(f"LiteLLM ({LITELLM_MODEL}) analyse le code..."):
+                    try:
+                        # Construction des messages au format OpenAI
+                        messages = [
+                            {"role": "system", "content": SYSTEM_PROMPT}
+                        ]
+                        # Ajout de l'historique (sans le dernier message user déjà ajouté)
+                        for m in st.session_state.chat_messages[:-1]:
+                            messages.append({
+                                "role": m["role"],
+                                "content": m["content"]
+                            })
+                        # Ajout du message courant
+                        messages.append({"role": "user", "content": prompt})
+
+                        # Configuration LiteLLM
+                        litellm_kwargs = {
+                            "model": LITELLM_MODEL,
+                            "messages": messages,
+                        }
+                        if LITELLM_API_KEY:
+                            litellm_kwargs["api_key"] = LITELLM_API_KEY
+                        if LITELLM_API_BASE:
+                            litellm_kwargs["api_base"] = LITELLM_API_BASE
+
+                        response = litellm.completion(**litellm_kwargs)
+                        answer = response.choices[0].message.content
+
+                    except Exception as e:
+                        answer = f"❌ Erreur LiteLLM : {e}"
+                    st.markdown(answer)
+
+            # ── Mode Gemini direct ───────────────────────────
+            else:
+                with st.spinner("Gemini analyse le code..."):
+                    try:
+                        response = st.session_state.gemini_chat.send_message(prompt)
+                        answer = response.text
+                    except Exception as e:
+                        answer = f"❌ Erreur Gemini : {e}"
+                    st.markdown(answer)
 
         st.session_state.chat_messages.append({"role": "assistant", "content": answer})
 
-    # Bouton reset conversation
+    # ── Bouton reset conversation ────────────────────────────
     if st.session_state.get("chat_messages"):
         st.markdown("---")
         if st.button("🗑️ Effacer la conversation"):
             st.session_state.chat_messages = []
-            if "gemini_chat" in st.session_state:
-                del st.session_state.gemini_chat
+            for key in ["gemini_chat"]:
+                if key in st.session_state:
+                    del st.session_state[key]
             st.rerun()
 
 # ══════════════════════════════════════════════════════════════
