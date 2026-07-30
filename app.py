@@ -936,6 +936,9 @@ elif page == "🤖 Assistant IA":
                         if LITELLM_API_BASE:
                             litellm_kwargs["api_base"] = LITELLM_API_BASE
 
+                        litellm.vertex_project = None
+                        litellm.vertex_location = None
+
                         response = litellm.completion(**litellm_kwargs)
                         answer = response.choices[0].message.content
 
