@@ -909,42 +909,30 @@ elif page == "🤖 Assistant IA":
 
         with st.chat_message("assistant"):
 
-            # ── Mode LiteLLM ─────────────────────────────────
-            if use_litellm:
-                with st.spinner(f"LiteLLM ({LITELLM_MODEL}) analyse le code..."):
-                    try:
-                        # Construction des messages au format OpenAI
-                        messages = [
-                            {"role": "system", "content": SYSTEM_PROMPT}
-                        ]
-                        # Ajout de l'historique (sans le dernier message user déjà ajouté)
-                        for m in st.session_state.chat_messages[:-1]:
-                            messages.append({
-                                "role": m["role"],
-                                "content": m["content"]
-                            })
-                        # Ajout du message courant
-                        messages.append({"role": "user", "content": prompt})
+            # ── Mode LiteLLM (Gateway Auchan) ────────────────
+if use_litellm:
+    with st.spinner(f"Gateway Auchan ({LITELLM_MODEL}) analyse le code..."):
+        try:
+            messages = [{"role": "system", "content": SYSTEM_PROMPT}]
+            for m in st.session_state.chat_messages[:-1]:
+                messages.append({"role": m["role"], "content": m["content"]})
+            messages.append({"role": "user", "content": prompt})
 
-                        # Configuration LiteLLM
-                        litellm_kwargs = {
-                            "model": LITELLM_MODEL,
-                            "messages": messages,
-                        }
-                        if LITELLM_API_KEY:
-                            litellm_kwargs["api_key"] = LITELLM_API_KEY
-                        if LITELLM_API_BASE:
-                            litellm_kwargs["api_base"] = LITELLM_API_BASE
+            # Désactivation de la détection automatique Vertex AI par LiteLLM
+            litellm.vertex_project  = None
+            litellm.vertex_location = None
 
-                        litellm.vertex_project = None
-                        litellm.vertex_location = None
+            response = litellm.completion(
+                model    = LITELLM_MODEL,          # "vertex_ai/claude-opus-4-6"
+                messages = messages,
+                api_key  = LITELLM_API_KEY,
+                api_base = LITELLM_API_BASE,       # "https://ai-gateway.internal.auchan.com"
+            )
+            answer = response.choices[0].message.content
 
-                        response = litellm.completion(**litellm_kwargs)
-                        answer = response.choices[0].message.content
-
-                    except Exception as e:
-                        answer = f"❌ Erreur LiteLLM : {e}"
-                    st.markdown(answer)
+        except Exception as e:
+            answer = f"❌ Erreur LiteLLM : {e}"
+        st.markdown(answer)
 
             # ── Mode Gemini direct ───────────────────────────
             else:
