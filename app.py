@@ -910,29 +910,29 @@ elif page == "🤖 Assistant IA":
         with st.chat_message("assistant"):
 
             # ── Mode LiteLLM (Gateway Auchan) ────────────────
-if use_litellm:
-    with st.spinner(f"Gateway Auchan ({LITELLM_MODEL}) analyse le code..."):
-        try:
-            messages = [{"role": "system", "content": SYSTEM_PROMPT}]
-            for m in st.session_state.chat_messages[:-1]:
-                messages.append({"role": m["role"], "content": m["content"]})
-            messages.append({"role": "user", "content": prompt})
-
-            # Désactivation de la détection automatique Vertex AI par LiteLLM
-            litellm.vertex_project  = None
-            litellm.vertex_location = None
-
-            response = litellm.completion(
-                model    = LITELLM_MODEL,          # "vertex_ai/claude-opus-4-6"
-                messages = messages,
-                api_key  = LITELLM_API_KEY,
-                api_base = LITELLM_API_BASE,       # "https://ai-gateway.internal.auchan.com"
-            )
-            answer = response.choices[0].message.content
-
-        except Exception as e:
-            answer = f"❌ Erreur LiteLLM : {e}"
-        st.markdown(answer)
+            if use_litellm:
+                with st.spinner(f"Gateway Auchan ({LITELLM_MODEL}) analyse le code..."):
+                    try:
+                        messages = [{"role": "system", "content": SYSTEM_PROMPT}]
+                        for m in st.session_state.chat_messages[:-1]:
+                            messages.append({"role": m["role"], "content": m["content"]})
+                        messages.append({"role": "user", "content": prompt})
+            
+                        # Désactivation de la détection automatique Vertex AI par LiteLLM
+                        litellm.vertex_project  = None
+                        litellm.vertex_location = None
+            
+                        response = litellm.completion(
+                            model    = LITELLM_MODEL,          # "vertex_ai/claude-opus-4-6"
+                            messages = messages,
+                            api_key  = LITELLM_API_KEY,
+                            api_base = LITELLM_API_BASE,       # "https://ai-gateway.internal.auchan.com"
+                        )
+                        answer = response.choices[0].message.content
+            
+                    except Exception as e:
+                        answer = f"❌ Erreur LiteLLM : {e}"
+                    st.markdown(answer)
 
             # ── Mode Gemini direct ───────────────────────────
             else:
