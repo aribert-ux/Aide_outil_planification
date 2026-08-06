@@ -29,14 +29,14 @@ LITELLM_MODEL   = st.secrets.get("LITELLM_MODEL", "gpt-4o") # modèle à utilise
 # CONFIGURATION PAGE
 # ══════════════════════════════════════════════════════════════
 st.set_page_config(
-    page_title="Aide — Outil de Planification Transport Auchan",
+    page_title="Aide - Outil de Planification Transport Auchan",
     page_icon="🚚",
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
 # ══════════════════════════════════════════════════════════════
-# CHARTE GRAPHIQUE AUCHAN — THÈME ROUGE
+# CHARTE GRAPHIQUE AUCHAN - THÈME ROUGE
 # ══════════════════════════════════════════════════════════════
 st.markdown("""<style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
@@ -166,7 +166,7 @@ def header():
         {logo_html}
         <div>
             <h1>Outil de Planification Transport</h1>
-            <p>Auchan — Guide d'utilisation &amp; Aide en ligne</p>
+            <p>Auchan - Guide d'utilisation &amp; Aide en ligne</p>
         </div>
     </div>
     """, unsafe_allow_html=True)
@@ -206,7 +206,7 @@ def alerte(texte, type_="info"):
     st.markdown(f'<div class="{cls}">{texte}</div>', unsafe_allow_html=True)
 
 # ══════════════════════════════════════════════════════════════
-# SIDEBAR — NAVIGATION
+# SIDEBAR - NAVIGATION
 # ══════════════════════════════════════════════════════════════
 
 with st.sidebar:
@@ -246,7 +246,7 @@ with st.sidebar:
 header()
 
 # ══════════════════════════════════════════════════════════════
-# PAGE — ACCUEIL
+# PAGE - ACCUEIL
 # ══════════════════════════════════════════════════════════════
 if page == "🏠 Accueil":
     st.markdown("## Bienvenue dans l'Outil de Planification Transport Auchan")
@@ -297,7 +297,7 @@ if page == "🏠 Accueil":
     """)
 
 # ══════════════════════════════════════════════════════════════
-# PAGE — FICHIERS D'ENTRÉE
+# PAGE - FICHIERS D'ENTRÉE
 # ══════════════════════════════════════════════════════════════
 elif page == "📂 Fichiers d'entrée":
     st.markdown("## 📂 Fichiers d'entrée")
@@ -373,9 +373,9 @@ elif page == "📂 Fichiers d'entrée":
         </thead>
         <tbody>
             <tr><td><code>[0]</code></td><td>Nom du magasin</td><td>Doit correspondre exactement aux noms dans le fichier Flux</td></tr>
-            <tr><td><code>[1] à [6]</code></td><td>Créneaux SEC — Lun à Sam</td><td>Format : <code>HH:MM - HH:MM</code> ou <code>Fermé</code></td></tr>
-            <tr><td><code>[7] à [12]</code></td><td>Créneaux Frais (PF/FL) — Lun à Sam</td><td>Idem. Créneaux nocturnes acceptés (ex. 22:00 - 05:00)</td></tr>
-            <tr><td><code>[13] à [18]</code></td><td>Créneaux Surgelés — Lun à Sam</td><td>Idem</td></tr>
+            <tr><td><code>[1] à [6]</code></td><td>Créneaux SEC - Lun à Sam</td><td>Format : <code>HH:MM - HH:MM</code> ou <code>Fermé</code></td></tr>
+            <tr><td><code>[7] à [12]</code></td><td>Créneaux Frais (PF/FL) - Lun à Sam</td><td>Idem. Créneaux nocturnes acceptés (ex. 22:00 - 05:00)</td></tr>
+            <tr><td><code>[13] à [18]</code></td><td>Créneaux Surgelés - Lun à Sam</td><td>Idem</td></tr>
         </tbody>
     </table>
     <p style="margin-top:12px;font-size:0.88rem;color:#666">
@@ -400,7 +400,7 @@ elif page == "📂 Fichiers d'entrée":
     """)
 
 # ══════════════════════════════════════════════════════════════
-# PAGE — DÉMARRAGE RAPIDE
+# PAGE - DÉMARRAGE RAPIDE
 # ══════════════════════════════════════════════════════════════
 elif page == "🚀 Démarrage rapide":
     st.markdown("## 🚀 Démarrage rapide")
@@ -445,7 +445,7 @@ elif page == "🚀 Démarrage rapide":
     alerte("✅ Le plan est prêt à être transmis aux équipes terrain.", "succes")
 
 # ══════════════════════════════════════════════════════════════
-# PAGE — GESTION DES FLUX
+# PAGE - GESTION DES FLUX
 # ══════════════════════════════════════════════════════════════
 elif page == "📦 Gestion des flux":
     st.markdown("## 📦 Gestion des flux de marchandises")
@@ -456,12 +456,12 @@ elif page == "📦 Gestion des flux":
             <tr><th>Code</th><th>Libellé</th><th>Contrainte principale</th></tr>
         </thead>
         <tbody>
-            <tr><td><strong>PGC</strong></td><td>Produits Grande Consommation</td><td>Chargement de jour uniquement (06h–22h) — incompatible avec FL, PF, SURG</td></tr>
-            <tr><td><strong>NAL</strong></td><td>Non Alimentaire</td><td>Chargement de jour uniquement (06h–22h) — incompatible avec FL, PF, SURG</td></tr>
-            <tr><td><strong>BSA</strong></td><td>Boissons Sans Alcool</td><td>Chargement de jour uniquement (06h–22h) — incompatible avec FL, PF, SURG</td></tr>
-            <tr><td><strong>FL</strong></td><td>Fruits &amp; Légumes 🌙</td><td>Tracteur indissociable pendant le chargement — compatible avec PF uniquement</td></tr>
-            <tr><td><strong>PF</strong></td><td>Produits Frais 🌙</td><td>Tracteur indissociable pendant le chargement — compatible avec FL uniquement</td></tr>
-            <tr><td><strong>SURG</strong></td><td>Surgelés</td><td>Tracteur indissociable — incompatible avec toutes les autres familles</td></tr>
+            <tr><td><strong>PGC</strong></td><td>Produits Grande Consommation</td><td>Chargement de jour uniquement (06h–22h) - incompatible avec FL, PF, SURG</td></tr>
+            <tr><td><strong>NAL</strong></td><td>Non Alimentaire</td><td>Chargement de jour uniquement (06h–22h) - incompatible avec FL, PF, SURG</td></tr>
+            <tr><td><strong>BSA</strong></td><td>Boissons Sans Alcool</td><td>Chargement de jour uniquement (06h–22h) - incompatible avec FL, PF, SURG</td></tr>
+            <tr><td><strong>FL</strong></td><td>Fruits &amp; Légumes 🌙</td><td>Tracteur indissociable pendant le chargement - compatible avec PF uniquement</td></tr>
+            <tr><td><strong>PF</strong></td><td>Produits Frais 🌙</td><td>Tracteur indissociable pendant le chargement - compatible avec FL uniquement</td></tr>
+            <tr><td><strong>SURG</strong></td><td>Surgelés</td><td>Tracteur indissociable - incompatible avec toutes les autres familles</td></tr>
         </tbody>
     </table>
     """)
@@ -515,7 +515,7 @@ elif page == "📦 Gestion des flux":
     """)
 
 # ══════════════════════════════════════════════════════════════
-# PAGE — PLANIFICATION DES TOURNÉES
+# PAGE - PLANIFICATION DES TOURNÉES
 # ══════════════════════════════════════════════════════════════
 elif page == "🗺️ Planification des tournées":
     st.markdown("## 🗺️ Planification des tournées")
@@ -600,7 +600,7 @@ elif page == "🗺️ Planification des tournées":
     """)
 
 # ══════════════════════════════════════════════════════════════
-# PAGE — RÈGLES MÉTIER
+# PAGE - RÈGLES MÉTIER
 # ══════════════════════════════════════════════════════════════
 elif page == "⚖️ Règles métier":
     st.markdown("## ⚖️ Règles métier")
@@ -661,12 +661,12 @@ elif page == "⚖️ Règles métier":
     couleurs = {"ERREUR": "erreur", "AVERTISSEMENT": "info", "INFO": "succes"}
 
     for code, titre, desc, niveau in regles:
-        with st.expander(f"**{code}** — {titre}"):
+        with st.expander(f"**{code}** - {titre}"):
             alerte(f"<strong>Niveau :</strong> {niveau}", couleurs.get(niveau, "info"))
             st.markdown(desc)
 
 # ══════════════════════════════════════════════════════════════
-# PAGE — INDICATEURS KPI
+# PAGE - INDICATEURS KPI
 # ══════════════════════════════════════════════════════════════
 elif page == "📊 Indicateurs KPI":
     st.markdown("## 📊 Indicateurs KPI")
@@ -712,7 +712,7 @@ Coût = A
     """)
 
 # ══════════════════════════════════════════════════════════════
-# PAGE — SAUVEGARDE & EXPORT
+# PAGE - SAUVEGARDE & EXPORT
 # ══════════════════════════════════════════════════════════════
 elif page == "💾 Sauvegarde & Export":
     st.markdown("## 💾 Sauvegarde & Export")
@@ -762,7 +762,7 @@ elif page == "💾 Sauvegarde & Export":
     """)
 
 # ══════════════════════════════════════════════════════════════
-# PAGE — FAQ
+# PAGE - FAQ
 # ══════════════════════════════════════════════════════════════
 elif page == "❓ FAQ":
     st.markdown("## ❓ Questions fréquentes")
@@ -822,10 +822,10 @@ elif page == "❓ FAQ":
             st.markdown(reponse, unsafe_allow_html=True)
 
 # ══════════════════════════════════════════════════════════════
-# PAGE — ASSISTANT IA
+# PAGE - ASSISTANT IA
 # ══════════════════════════════════════════════════════════════
 elif page == "🤖 Assistant IA":
-    st.markdown("## 🤖 Assistant IA — Outil de Planification Transport")
+    st.markdown("## 🤖 Assistant IA - Outil de Planification Transport")
     st.markdown(
         "Posez vos questions sur le code, les règles métier, "
         "les fichiers d'entrée, les vues Gantt, les KPI, etc."
@@ -961,7 +961,7 @@ elif page == "🤖 Assistant IA":
 # ══════════════════════════════════════════════════════════════
 st.markdown("""
 <div class="footer">
-    Auchan Transport — Outil de Planification Transport &nbsp;|&nbsp;
+    Auchan Transport - Outil de Planification Transport &nbsp;|&nbsp;
     Région Nord &nbsp;|&nbsp;
     Support : aribert@auchan.fr
 </div>
