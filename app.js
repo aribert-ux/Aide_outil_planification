@@ -309,6 +309,7 @@ const pageRenderers = {
       ['R10',   'Créneaux d\'ouverture magasin', 'La livraison doit arriver dans les créneaux d\'ouverture déclarés.', 'ERREUR'],
       ['R11',   'Reprise des emballages', 'Chaque magasin actif doit recevoir au moins un passage de flotte propre par jour.', 'AVERTISSEMENT'],
       ['R12',   'Pas de chevauchement tracteur', 'Deux tournées d\'un même module ne peuvent pas se chevaucher temporellement.', 'ERREUR'],
+      ['R13',   'Le chauffeur revient bien à son point de départ', 'Le chauffeur doit revenir là où il a garé sa voiture à la fin de son shift', 'AVERTISSEMENT'],
       ['R_NAV', 'Chronologie navettisation', 'La navette T1 doit être planifiée et terminée avant le début du chargement du flux dérivé T2.', 'ERREUR'],
     ];
 
