@@ -209,9 +209,9 @@ const pageRenderers = {
         ['<strong>PGC</strong>', 'Produits Grande Consommation', 'Chargement de jour uniquement (06h–22h) — incompatible avec FL, PF, SURG'],
         ['<strong>NAL</strong>', 'Non Alimentaire', 'Chargement de jour uniquement — incompatible avec FL, PF, SURG'],
         ['<strong>BSA</strong>', 'Boissons Sans Alcool', 'Chargement de jour uniquement — incompatible avec FL, PF, SURG'],
-        ['<strong>FL</strong>', 'Fruits &amp; Légumes 🌙', 'Tracteur indissociable pendant le chargement — compatible avec PF uniquement'],
-        ['<strong>PF</strong>', 'Produits Frais 🌙', 'Tracteur indissociable — compatible avec FL uniquement'],
-        ['<strong>SURG</strong>', 'Surgelés', 'Tracteur indissociable — incompatible avec toutes les autres familles'],
+        ['<strong>FL</strong>', 'Fruits &amp; Légumes 🌙', 'Tracteur indissociable pendant le chargement — compatible avec PF et les types SEC'],
+        ['<strong>PF</strong>', 'Produits Frais 🌙', 'Tracteur indissociable — compatible avec FL et les types SEC'],
+        ['<strong>SURG</strong>', 'Surgelés', 'Tracteur indissociable — incompatible avec FL et PF, compatible avec les types SEC'],
       ]
     ))}
     <hr />
@@ -221,9 +221,9 @@ const pageRenderers = {
         ['<strong>PGC</strong>',  '✅','✅','✅','🚫','🚫','🚫'],
         ['<strong>NAL</strong>',  '✅','✅','✅','🚫','🚫','🚫'],
         ['<strong>BSA</strong>',  '✅','✅','✅','🚫','🚫','🚫'],
-        ['<strong>FL</strong>',   '🚫','🚫','🚫','✅','✅','🚫'],
-        ['<strong>PF</strong>',   '🚫','🚫','🚫','✅','✅','🚫'],
-        ['<strong>SURG</strong>', '🚫','🚫','🚫','🚫','🚫','✅'],
+        ['<strong>FL</strong>',   '✅','✅','✅','✅','✅','🚫'],
+        ['<strong>PF</strong>',   '✅','✅','✅','✅','✅','🚫'],
+        ['<strong>SURG</strong>', '✅','✅','✅','🚫','🚫','✅'],
       ]
     ))}
     <hr />
@@ -245,6 +245,9 @@ const pageRenderers = {
         <li>Un <strong>flux dérivé</strong> (relay → magasin) à assigner à T2</li>
       </ul>
       <p>⚠️ T1 doit être planifiée et terminée avant le début du chargement de T2 (règle R_NAV).</p>
+      <hr style="margin:8px 0"/>
+      <p><strong>Entrepôt à navettisation forcée : ENT MEYZIEU MEDLEY SUD</strong></p>
+      <p>Tous les flux issus de cet entrepôt sont automatiquement navettisés vers le meilleur entrepôt d'accueil (celui qui dessert le plus de magasins en commun). Cette règle s'applique en priorité lors du calcul automatique 🧠 Auto.</p>
     `)}`;
   },
 
@@ -283,6 +286,30 @@ const pageRenderers = {
         ['<span class="badge-regle">R7</span>', '6h de service continu (360 min)', '30 min', 'Remet à zéro le compteur service uniquement'],
       ]
     ))}
+    <hr />
+    ${card('Optimisation automatique — 🧠 Auto', `
+      <p>Le bouton <strong>🧠 Auto</strong> déclenche une optimisation complète du planning en deux phases :</p>
+      <ol>
+        <li><strong>Heuristique</strong> — affectation initiale des flux aux tournées par groupes compatibles.</li>
+        <li><strong>LNS</strong> (Large Neighbourhood Search, ~500 itérations) — amélioration par permutations successives pour minimiser le nombre de modules et respecter les créneaux.</li>
+      </ol>
+      <p>⏱️ Durée typique : 30 à 60 secondes selon le volume de flux.</p>
+      <p>Les navettes forcées (ENT MEYZIEU MEDLEY SUD) et les navettes liées aux flux ≤ 1 UT sont créées automatiquement avant l'optimisation.</p>
+      <p>En cas d'échec partiel, un toast indique le nombre de groupes non placés et la cause (créneau incompatible, distance manquante, fenêtre trop courte…).</p>
+    `)}
+    <hr />
+    ${card('Durée de chargement manuelle', `
+      <p>Lors de l'ajout d'une tournée (<strong>+ Tournée</strong>), un champ <code>Chargement (min)</code> permet de saisir une durée personnalisée.</p>
+      <p>Si laissé vide (<em>Auto</em>), la durée est calculée automatiquement selon la famille de marchandises :</p>
+      ${styledTable(
+        ['Famille', 'Durée par défaut'],
+        [
+          ['FL / PF / SURG (Frais)', '60 min'],
+          ['PGC / NAL / BSA (SEC)', '30 min'],
+        ]
+      )}
+      <p style="font-size:0.88rem;color:#666">La durée peut aussi être modifiée après création via le panneau de paramètres de la tournée.</p>
+    `)}
     <hr />
     ${card('Vues Gantt disponibles', styledTable(
       ['Vue', 'Description'],
@@ -374,13 +401,25 @@ const pageRenderers = {
       [
         ['<strong>JSON</strong>', '<code>💾 Exporter JSON</code>', 'Session complète : flux planifiés, modules, offsets, navettes, paramètres KPI. Réimportable.'],
         ['<strong>CSV</strong>', '<code>📋 CSV</code>', 'Planning des livraisons : Module, Tournée, Remorque, Magasin, Marchandise, UT, Heure estimée.'],
+        ['<strong>PDF</strong>', '<code>📄 PDF</code>', 'Planning graphique complet en A3 paysage : Gantt Modules, Bilan Remorques, Courbe de charge UT, Gantt Remorques physiques, Gantt Magasins.'],
       ]
     ))}
     <hr />
     ${step(1, 'Valider toutes les tournées', 'Cliquez sur 🔍 Valider → Tout valider. Assurez-vous qu\'il n\'y a aucune erreur R1–R12.')}
     ${step(2, 'Exporter la session JSON', 'Cliquez sur 💾 Exporter JSON. Un fichier session_transport_[Jour]_[Date].json est téléchargé.')}
     ${step(3, 'Exporter le CSV si nécessaire', 'Cliquez sur 📋 CSV pour obtenir un tableau des livraisons planifiées.')}
-    ${step(4, 'Réimporter une session', 'Cliquez sur 📥 Importer et sélectionnez un fichier .json précédemment exporté.')}
+    ${step(4, 'Exporter le PDF', 'Cliquez sur 📄 PDF. Un fichier A3 paysage est généré avec l\'ensemble des vues et indicateurs du planning.')}
+    ${step(5, 'Réimporter une session', 'Cliquez sur 📥 Importer et sélectionnez un fichier .json précédemment exporté.')}
+    <hr />
+    ${card('Contenu du PDF exporté', `
+      <p>Le PDF multi-pages contient :</p>
+      <ul>
+        <li><strong>Page 1</strong> — En-tête, légende et Gantt Modules</li>
+        <li><strong>Page 2</strong> — Bilan Remorques, <strong>Courbe de charge UT par entrepôt</strong> et Gantt Remorques physiques</li>
+        <li><strong>Page 3</strong> — Gantt Magasins</li>
+      </ul>
+      <p>La <strong>courbe de charge</strong> affiche, pour chaque entrepôt (une couleur par entrepôt), le nombre d'UT en cours de chargement à chaque instant sur la plage 6h→6h (pas de 5 min). Elle permet de visualiser les pics et creux de charge à quai.</p>
+    `)}
     <hr />
     ${card('Auto-sauvegarde', `
       <p>L'outil sauvegarde automatiquement dans le <strong>localStorage</strong> toutes les 60 secondes.</p>
@@ -408,6 +447,12 @@ const pageRenderers = {
        'Dans le panneau de validation (🔍 Valider), modifiez A, B sec, B frais, C jour, C nuit, CO₂/km et Prix carbone, puis cliquez sur 🔄 Recalculer.'],
       ['La session n\'est pas restaurée au démarrage',
        'L\'auto-sauvegarde utilise le localStorage, perdu si vous videz le cache. Utilisez l\'export JSON pour transférer entre postes.'],
+      ['L\'export PDF échoue ou est vide',
+       'Vérifiez que les bibliothèques html2canvas et jsPDF sont bien chargées (connexion internet requise). Assurez-vous que le planning est affiché avant de lancer l\'export.'],
+      ['Le 🧠 Auto ne place pas tous les flux',
+       'Un toast indique le nombre de groupes non placés et la cause (créneau incompatible, distance manquante, fenêtre trop courte). Vérifiez la cartographie et le distancier pour les magasins concernés.'],
+      ['La courbe de charge est absente du PDF',
+       'La courbe est générée à partir des données de l\'onglet Remorques. Assurez-vous d\'avoir au moins une tournée planifiée avant de lancer l\'export PDF.'],
     ];
 
     const items = faqs.map(([q, r]) => `
@@ -613,7 +658,18 @@ async function tryLoadLogo() {
     if (!r.ok) return;
     const svg = await r.text();
     const el  = document.getElementById('logo-container');
-    if (el) el.innerHTML = `<div style="width:108px;height:27px;filter:brightness(0) invert(1)">${svg}</div>`;
+    if (!el) return;
+    const wrapper = document.createElement('div');
+    wrapper.style.cssText = 'filter:brightness(0) invert(1);line-height:0;';
+    wrapper.innerHTML = svg;
+    const svgEl = wrapper.querySelector('svg');
+    if (svgEl) {
+      svgEl.setAttribute('width', '140');
+      svgEl.setAttribute('height', '24');
+      svgEl.style.display = 'block';
+    }
+    el.innerHTML = '';
+    el.appendChild(wrapper);
   } catch (_) { /* logo optionnel */ }
 }
 
