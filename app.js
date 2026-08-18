@@ -246,8 +246,8 @@ const pageRenderers = {
       </ul>
       <p>⚠️ T1 doit être planifiée et terminée avant le début du chargement de T2 (règle R_NAV).</p>
       <hr style="margin:8px 0"/>
-      <p><strong>Entrepôt à navettisation forcée : ENT MEYZIEU MEDLEY SUD</strong></p>
-      <p>Tous les flux issus de cet entrepôt sont automatiquement navettisés vers le meilleur entrepôt d'accueil (celui qui dessert le plus de magasins en commun). Cette règle s'applique en priorité lors du calcul automatique 🧠 Auto.</p>
+      <p><strong>Entrepôt à navettisation forcée </strong></p>
+      <p>Tous les flux issus de certains entrepôt sont automatiquement navettisés vers le meilleur entrepôt d'accueil (celui qui dessert le plus de magasins en commun). Cette règle s'applique en priorité lors du calcul automatique 🧠 Auto.</p>
     `)}`;
   },
 
