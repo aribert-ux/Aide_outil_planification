@@ -199,6 +199,50 @@ const pageRenderers = {
     ${alerte('✅ Le plan est prêt à être transmis aux équipes terrain.', 'succes')}`;
   },
 
+  // ── CONCEPTS CLÉS ─────────────────────────────────────────
+  concepts(el) {
+    el.innerHTML = `
+    <h2>📖 Concepts clés</h2>
+    ${alerte('Ces définitions précisent le sens exact des termes utilisés dans l\'outil et dans les règles métier.', 'info')}
+    <hr />
+    ${card('🚛 Tournée', `
+      <p>Suivi d'un ensemble composé d'<strong>1 tracteur et 1 remorque</strong>, depuis le moment où la remorque est chargée jusqu'au moment où elle est <strong>vide ET revenue à un entrepôt</strong> (décrochée).</p>
+      <ul>
+        <li>Pour les marchandises <strong>frais / surgelés (FL, PF, SURG)</strong> : la tournée commence <em>avant</em> l'accrochage du tracteur (chargement de la remorque à quai).</li>
+        <li>Pour les marchandises <strong>SEC (PGC, NAL, BSA)</strong> : la tournée commence juste après l'accrochage.</li>
+      </ul>
+      ${alerte('Une tournée peut couvrir (inclusion non stricte) <strong>un ou plusieurs shifts chauffeurs</strong>. Le tracteur et la remorque sont continus ; c\'est le chauffeur qui peut changer.', 'info')}
+    `)}
+    <hr />
+    ${card('👤 Shift chauffeur', `
+      <p>Suivi du <strong>temps de travail d'un chauffeur unique</strong>.</p>
+      <ul>
+        <li>Il <strong>commence et se termine dans le même entrepôt</strong>.</li>
+        <li>Sa durée est limitée à <strong>11 h en journée</strong> et <strong>10 h de nuit</strong> (règle R8).</li>
+        <li>Il inclut les pauses obligatoires R6 (conduite) et R7 (service).</li>
+      </ul>
+      <p>Un shift peut couvrir une ou plusieurs tournées enchaînées. En cas de changement de chauffeur <em>en cours de tournée</em>, le shift du premier chauffeur se termine à l'entrepôt de relève, et le shift du second démarre au même endroit.</p>
+    `)}
+    <hr />
+    ${card('📦 Module', `
+      <p>Suivi d'un <strong>tracteur sur une journée de chargement</strong>.</p>
+      <ul>
+        <li>Un module regroupe toutes les tournées effectuées par un même tracteur dans la journée.</li>
+        <li>Les tournées d'un module sont ordonnées et ne peuvent pas se chevaucher (règle R12).</li>
+        <li>L'atelier de construction est le module <strong>M0</strong>, qui contient les flux non encore assignés.</li>
+      </ul>
+    `)}
+    <hr />
+    ${card('↔ Navette (tournée spéciale)', `
+      <p>Tournée <strong>sans déchargement en magasin</strong>, mais avec un déchargement dans un entrepôt relay.</p>
+      <ul>
+        <li>Elle permet d'acheminer des marchandises d'un entrepôt d'origine vers un entrepôt intermédiaire, depuis lequel une autre tournée assurera la livraison finale en magasin.</li>
+        <li>La navette étant une <strong>tournée spéciale</strong>, il faut d'abord <strong>créer une tournée</strong> dans un module, puis lui assigner la navette.</li>
+        <li>La tournée de navette (T1) doit être planifiée et terminée avant le début du chargement du flux dérivé (T2) — règle R_NAV.</li>
+      </ul>
+    `)}`;
+  },
+
   // ── GESTION DES FLUX ──────────────────────────────────────
   flux(el) {
     el.innerHTML = `
@@ -431,6 +475,14 @@ const pageRenderers = {
   // ── FAQ ───────────────────────────────────────────────────
   faq(el) {
     const faqs = [
+      ['Comment changer de chauffeur ?',
+       `<p>La démarche dépend de l'état de la remorque au moment du changement :</p>
+        <p><strong>La remorque est vide ou décrochée ?</strong></p>
+        <ul>
+          <li>✅ <strong>OUI</strong> → Utilisez l'outil ciseaux <strong>entre deux tournées</strong> en cliquant sur la bande rouge ou bleue de shift dans l'espace entre les deux barres de tournée.</li>
+          <li>🔶 <strong>NON</strong> (remorque encore chargée, en cours de tournée) → Activez l'outil ciseaux via le bouton <strong>✂ Chauffeur</strong> en haut à droite, puis cliquez sur un <strong>bloc de route</strong> à l'endroit souhaité dans la tournée. L'entrepôt de relève est sélectionnable à l'activation de l'outil.</li>
+        </ul>
+        <p style="font-size:0.88rem;color:#666">Dans les deux cas, le shift du second chauffeur part de l'entrepôt de relève. Un délai de reprise (attente du 2ᵉ chauffeur) peut être ajouté via le panneau tournée.</p>`],
       ['Le fichier Excel ne se charge pas',
        'Vérifiez que le fichier est au format <code>.xlsx</code> ou <code>.xls</code> et que les colonnes sont dans l\'ordre attendu.'],
       ['Le distancier affiche "Distance introuvable"',
