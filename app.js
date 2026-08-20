@@ -569,7 +569,7 @@ const pageRenderers = {
         ],
       },
       {
-        titre: 'Exercice 5 — Relève chauffeur entre deux tournées',
+        titre: 'Exercice 5 — Relève chauffeur en milieu de tournée',
         etapes: [
           { t: 'Filtrer pour AMIENS BINAT - RONCQ', d: 'Activez le filtre pour AMIENS BINAT et RONCQ.' },
           { t: 'Créer une tournée et glisser le flux BINAT - RONCQ', d: 'Glissez le flux BINAT - RONCQ sur la tournée créée.' },
