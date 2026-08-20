@@ -405,3 +405,44 @@ pre {
   font-size: 0.88rem;
 }
 code { font-family: monospace; background: #FFF5F5; padding: 1px 5px; border-radius: 3px; }
+
+/* ── EXERCICES ── */
+.ex-tabs { display: flex; gap: 8px; margin: 16px 0; flex-wrap: wrap; }
+.ex-tab {
+  background: #f5f5f5;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  padding: 8px 20px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: #555;
+  font-family: inherit;
+}
+.ex-tab:hover { border-color: #D6180B; color: #D6180B; }
+.ex-tab.active { background: #D6180B; border-color: #D6180B; color: white; }
+.ex-hidden { display: none !important; }
+.ex-img {
+  max-width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+  margin-top: 10px;
+  display: block;
+}
+.ex-section { margin-top: 12px; }
+.ex-toggle-btn {
+  background: none;
+  border: 2px solid #D6180B;
+  color: #D6180B;
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+.ex-toggle-btn:hover, .ex-toggle-btn.open { background: #D6180B; color: white; }
+.ex-toggle-sol { border-color: #2a8a2a; color: #2a8a2a; }
+.ex-toggle-sol:hover, .ex-toggle-sol.open { background: #2a8a2a; color: white; border-color: #2a8a2a; }

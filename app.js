@@ -517,6 +517,110 @@ const pageRenderers = {
     el.innerHTML = `<h2>❓ Questions fréquentes</h2>${items}`;
   },
 
+  // ── EXERCICES ─────────────────────────────────────────────
+  exercices(el) {
+    const data = [
+      {
+        titre: 'Exercice 1 — Tournée simple avec flux manuel et flux vide',
+        etapes: [
+          { t: 'Créer une tournée', d: 'Cliquez sur le bouton de création de tournée dans l\'interface principale.' },
+          { t: 'Glisser le flux IENA-ENGLOS 32.6 UT PGC', d: 'Faites glisser ce flux depuis la liste vers la tournée créée.' },
+          { t: 'Ajouter un flux manuel', d: 'Ajoutez un flux manuel à la suite dans la tournée.' },
+          { t: 'Ajouter le flux vide IENA - LEERS', d: 'Glissez le flux vide IENA - LEERS sur la tournée.' },
+          { t: 'Panel tournées : ligne LEERS 45\' EMB', d: 'Dans le panel tournées, sélectionnez la ligne LEERS 45\' EMB.' },
+          { t: 'Retour : ENT IENA', d: 'Dans le panel tournées, choisissez ENT IENA comme point de retour.' },
+        ],
+      },
+      {
+        titre: 'Exercice 2 — Navette à vide et multi-flux avec choix d\'unités',
+        etapes: [
+          { t: 'Repérer la navette à vide ENT AMIENS BINAT - ENT IENA', d: 'Ce flux se trouve tout en bas de la liste des flux.' },
+          { t: 'Créer une tournée', d: 'Cliquez sur le bouton de création de tournée.' },
+          { t: 'Glisser la navette à vide dans la tournée', d: 'Faites glisser la navette (tout en bas de liste) sur la première tournée.' },
+          { t: 'Créer une nouvelle tournée après la première', d: 'Ajoutez une deuxième tournée à la suite de la première.' },
+          { t: 'Glisser IENA - RONCQ et choisir 20 UT', d: 'Déposez le flux IENA - RONCQ PGC sur la 2ème tournée, puis sélectionnez 20 UT dans la fenêtre qui s\'ouvre.' },
+          { t: 'Glisser IENA - LEERS et choisir 13 UT', d: 'Déposez le flux IENA - LEERS PGC, puis sélectionnez 13 UT.' },
+          { t: 'Retour ENT IENA', d: 'Dans le panel tournées, définissez le retour sur ENT IENA.' },
+        ],
+      },
+      {
+        titre: 'Exercice 3 — Navettisation, fusion de navettes et flux dérivés',
+        etapes: [
+          { t: 'Filtrer pour ENT AMIENS BINAT, city Tourcoing et Leers', d: 'Activez les filtres pour ENT AMIENS BINAT, Auchan city Tourcoing et Leers.' },
+          { t: 'Navetter le bloc city Tourcoing', d: 'Cliquez sur le bouton "Navetter" du bloc city Tourcoing et choisissez ENT IENA comme entrepôt relay.' },
+          { t: 'Navetter le bloc Leers', d: 'Cliquez sur le bouton "Navetter" du bloc Leers et choisissez ENT IENA comme entrepôt relay.' },
+          { t: 'Fusionner les deux navettes', d: 'Dans le bandeau bleu "Navettisations actives", glissez-déposez la première navette sur la deuxième (bloc en haut à gauche sur le bloc en bas à gauche, ou inversement). Confirmez avec OK dans la boîte de dialogue.' },
+          { t: 'Créer une tournée et glisser la navette unique', d: 'Créez une première tournée et glissez-y l\'unique navette fusionnée.' },
+          { t: 'Créer une 2ème tournée et glisser les flux dérivés', d: 'Ajoutez une deuxième tournée, puis glissez-y le flux dérivé city Tourcoing, suivi du flux dérivé Leers.' },
+          { t: 'Retour ENT IENA pour la 2ème tournée', d: 'Dans le panel tournées, choisissez ENT IENA comme retour pour la deuxième tournée.' },
+        ],
+      },
+      {
+        titre: 'Exercice 4 — Quai commun et outil chauffeur',
+        etapes: [
+          { t: 'Filtrer pour ENT CARVIN PF, Béthune et Noyelles', d: 'Activez les filtres pour ENT CARVIN PF, Béthune/Drive Béthune et Noyelles Godault/Drive Noyelles.' },
+          { t: 'Créer une tournée', d: 'Cliquez sur le bouton de création de tournée.' },
+          { t: 'Glisser les flux dans l\'ordre', d: 'Faites glisser dans cet ordre : flux Noyelles → Drive Noyelles → Béthune → Drive Béthune.' },
+          { t: 'Fusionner le quai commun', d: 'Dans le panel tournées, le champ "Quai commun" est apparu. Cliquez sur "Fusionner".' },
+          { t: 'Retour ENT CARVIN PF', d: 'Définissez ENT CARVIN PF comme point de retour.' },
+          { t: 'Activer l\'outil "Chauffeur"', d: 'Cliquez sur le bouton outil activable "Chauffeur".' },
+          { t: 'Entrepôt de relève : laisser par défaut', d: 'Gardez la valeur par défaut pour l\'entrepôt de relève.' },
+          { t: 'Pointer le bloc de route gris', d: 'Pointez avec la souris le bloc de route gris situé entre Drive Noyelles et Béthune. Zoomez si nécessaire.' },
+        ],
+      },
+      {
+        titre: 'Exercice 5 — Relève chauffeur entre deux tournées',
+        etapes: [
+          { t: 'Filtrer pour AMIENS BINAT - RONCQ', d: 'Activez le filtre pour AMIENS BINAT et RONCQ.' },
+          { t: 'Créer une tournée et glisser le flux BINAT - RONCQ', d: 'Glissez le flux BINAT - RONCQ sur la tournée créée.' },
+          { t: 'Retour ENT SAINGHIN1', d: 'Dans le panel tournées, sélectionnez ENT SAINGHIN1 comme point de retour.' },
+          { t: 'Changer de filtre', d: 'Supprimez les filtres actifs, puis filtrez pour SAINGHIN1 - DURY et DRIVE DURY.' },
+          { t: 'Créer une 2ème tournée après la précédente', d: 'Ajoutez une deuxième tournée à la suite de la première.' },
+          { t: 'Glisser Sainghin - DURY puis SAINGHIN - DRIVE DURY', d: 'Faites glisser les deux flux sur la deuxième tournée dans cet ordre.' },
+          { t: 'Activer l\'outil "Chauffeur"', d: 'Cliquez sur le bouton outil activable "Chauffeur".' },
+          { t: 'Entrepôt de relève : laisser par défaut', d: 'Gardez la valeur par défaut pour l\'entrepôt de relève.' },
+          { t: 'Pointer le bloc de route gris', d: 'Pointez avec la souris le bloc de route gris entre l\'accroche à Sainghin (2ème tournée) et Dury — à gauche ou à droite de la pause. Zoomez si nécessaire.' },
+        ],
+      },
+    ];
+
+    const tabsHTML = data.map((ex, i) =>
+      `<button class="ex-tab${i === 0 ? ' active' : ''}" onclick="showExercice(${i + 1})">Exercice ${i + 1}</button>`
+    ).join('');
+
+    const panelsHTML = data.map((ex, i) => {
+      const stepsHTML = ex.etapes.map((e, j) => step(j + 1, e.t, e.d)).join('');
+      return `
+      <div class="ex-panel${i === 0 ? '' : ' ex-hidden'}" id="ex-panel-${i + 1}">
+        <div class="help-card">
+          <h3>${ex.titre}</h3>
+          <h4 style="margin-top:12px">📋 Énoncé</h4>
+          <img src="Exercices%20prise%20en%20mains/ex${i + 1}.jpeg"
+               alt="Énoncé exercice ${i + 1}" class="ex-img"
+               onerror="this.insertAdjacentHTML('afterend','<p style=\\'color:#999;font-style:italic\\'>Image non disponible</p>');this.remove()" />
+        </div>
+        <div style="margin-top:14px;display:flex;gap:12px;flex-wrap:wrap">
+          <button class="ex-toggle-btn"
+                  onclick="toggleExSection('steps-${i + 1}', this)">▶ Voir les étapes guidées</button>
+          <button class="ex-toggle-btn ex-toggle-sol"
+                  onclick="toggleExSection('sol-${i + 1}', this)">🏁 Voir la solution</button>
+        </div>
+        <div id="steps-${i + 1}" class="ex-section ex-hidden">${stepsHTML}</div>
+        <div id="sol-${i + 1}" class="ex-section ex-hidden">
+          <img src="Exercices%20prise%20en%20mains/sol${i + 1}.png"
+               alt="Solution exercice ${i + 1}" class="ex-img"
+               onerror="this.insertAdjacentHTML('afterend','<p style=\\'color:#999;font-style:italic\\'>Image non disponible</p>');this.remove()" />
+        </div>
+      </div>`;
+    }).join('');
+
+    el.innerHTML = `
+    <h2>🎓 Exercices de prise en main</h2>
+    ${alerte('Entraînez-vous sur chaque exercice dans l\'outil réel. Les étapes guidées et la solution sont là en cas de blocage — essayez d\'abord par vous-même !', 'info')}
+    <div class="ex-tabs">${tabsHTML}</div>
+    ${panelsHTML}`;
+  },
+
   // ── ASSISTANT IA ──────────────────────────────────────────
   assistant(el) {
     el.innerHTML = `
@@ -550,6 +654,30 @@ const pageRenderers = {
     renderChatHistory();
   },
 };
+
+// ══════════════════════════════════════════════════════════════
+// EXERCICES — NAVIGATION ET TOGGLES
+// ══════════════════════════════════════════════════════════════
+
+function showExercice(n) {
+  document.querySelectorAll('.ex-panel').forEach(p => p.classList.add('ex-hidden'));
+  document.querySelectorAll('.ex-tab').forEach(t => t.classList.remove('active'));
+  const panel = document.getElementById('ex-panel-' + n);
+  const tabs  = document.querySelectorAll('.ex-tab');
+  if (panel) panel.classList.remove('ex-hidden');
+  if (tabs[n - 1]) tabs[n - 1].classList.add('active');
+}
+
+function toggleExSection(id, btn) {
+  const section = document.getElementById(id);
+  if (!section) return;
+  const nowHidden = section.classList.toggle('ex-hidden');
+  if (btn) {
+    const label = btn.textContent.replace(/^[▶▼]\s*/, '');
+    btn.textContent = (nowHidden ? '▶ ' : '▼ ') + label;
+    nowHidden ? btn.classList.remove('open') : btn.classList.add('open');
+  }
+}
 
 // ══════════════════════════════════════════════════════════════
 // CHARGEMENT DU CODE SOURCE DEPUIS GITHUB
